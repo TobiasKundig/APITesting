@@ -5,7 +5,7 @@ from apis.serializers import UserSerializer, GroupSerializer
 from django.http import HttpResponse
 
 def index(request):
-    return HttpResponse("API Testing Suite")
+    return render(request, "apis/index.html")
 
 class UserViewSet(viewsets.ModelViewSet):
     """
