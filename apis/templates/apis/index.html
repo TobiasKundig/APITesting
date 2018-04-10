@@ -3,4 +3,27 @@
 
     {% block content %}
 
+<div id='data'>
+</div>
+<button type="button" id="button_1" value="val_1" name="but1">button 1</button>
+
+<script>
+$(document).ready(function() {
+  $("#button_1").click(function(e) {
+    e.preventDefault();
+    $.ajax({
+      url: "/apis/download",
+      type: 'get',
+      dataType: 'json',
+      success: function (data) {
+        alert("Success");
+        var div = document.getElementById('data');
+        div.innerHTML = div.innerHTML + JSON.stringify(data);       
+
+      } 
+    });
+  });
+});
+</script>
     {% endblock content %}
+

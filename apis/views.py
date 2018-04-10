@@ -2,10 +2,16 @@ from django.shortcuts import render
 from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from apis.serializers import UserSerializer, GroupSerializer
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+import requests
 
 def index(request):
-    return render(request, "apis/index.html")
+    r = requests.get('https://api.rezdy.com/v1/products/marketplace?apiKey=1d7ce4142c634882846e3597aaef36e4')    
+    return render(request, "apis/index.html", r.json())
+
+def download(request):
+    data = requests.get('https://api.rezdy.com/v1/products/marketplace?apiKey=1d7ce4142c634882846e3597aaef36e4')
+    return JsonResponse(data.json())
 
 class UserViewSet(viewsets.ModelViewSet):
     """
