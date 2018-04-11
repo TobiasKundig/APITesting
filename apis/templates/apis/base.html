@@ -1,3 +1,11 @@
+{% load socialaccount %}
+{% if user.is_authenticated %}
+   <p>Welcome {{ user.username }} !!!</p>
+{% else %}
+   <a href="{% provider_login_url 'google' %}">Sign Up</a>
+{% endif %}
+
+
 {% load staticfiles %}
 <!DOCTYPE html>
 <html  class="no-js" lang="">
