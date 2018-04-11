@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'rest_framework_docs',
 ]
 
 MIDDLEWARE = [
@@ -136,3 +137,10 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/'
+
+SITE_ID=1
+
+ACCOUNT_USERNAME_REQUIRED=False
+ACCOUNT_EMAIL_VERIFICATION="none"
+SOCIALACCOUNT_QUERY_EMAIL=True
+LOGIN_REDIRECT_URL="/"
