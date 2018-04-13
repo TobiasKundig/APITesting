@@ -22,12 +22,14 @@ from apis import views
 router = routers.DefaultRouter()
 router.register(r'users', views.UserViewSet)
 router.register(r'groups', views.GroupViewSet)
+#router.register(r'rezdy', views.download)
 
 urlpatterns = [
     url(r'^apis/', include('apis.urls')),
     url(r'^admin/', admin.site.urls),
     url(r'^', include(router.urls)),
-    url(r'^accounts/', include('allauth.urls')),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    url(r'^rest-auth/', include('rest_auth.urls')),
+    url(r'^rest-auth/registration/', include('rest_auth.registration.urls')),
     url(r'^docs/', include('rest_framework_docs.urls')),
+    url(r'^rest-auth/google/$', views.GoogleLogin.as_view(), name='gl_login')
 ]

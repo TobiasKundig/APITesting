@@ -12,15 +12,15 @@ $(document).ready(function() {
   $("#button_1").click(function(e) {
     e.preventDefault();
     $.ajax({
-      url: "/apis/download",
+      url: 'download/',
       type: 'get',
-      dataType: 'json',
+
       success: function (data) {
         alert("Success");
         var div = document.getElementById('jsondata');
         div.innerHTML = div.innerHTML + JSON.stringify(data);       
-
-      } 
+      },
+      error: function (errorThrown){alert("Failure" + errorThrown.toString());}
     });
   });
 });
