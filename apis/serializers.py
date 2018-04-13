@@ -12,3 +12,8 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
     class Meta:
         model = Group
         fields = ('url', 'name')
+
+class RezdySerializer(serializers.Serializer):
+    data = serializers.JSONField()
+
+

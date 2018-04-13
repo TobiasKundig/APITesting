@@ -11,13 +11,12 @@ import requests
 def index(request):
     return render(request, "apis/index.html")
 
-def download(request):
+def download():
     """
     Returns Rezdy Marketplace products
     """
     data = requests.get('https://api.rezdy.com/v1/products/marketplace?apiKey=1d7ce4142c634882846e3597aaef36e4')
-    print(data)
-    return JsonResponse(data.json())
+    return JsonResponse(data.json(), safe=False)
 
 class UserViewSet(viewsets.ModelViewSet):
     """
