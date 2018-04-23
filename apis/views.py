@@ -3,13 +3,14 @@ from django.contrib.auth.models import User, Group
 from rest_framework import viewsets
 from apis.serializers import UserSerializer, GroupSerializer
 from django.http import HttpResponse, JsonResponse
-from django.views import View
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from rest_auth.registration.views import SocialLoginView
 import requests
 
+
 def index(request):
     return render(request, "apis/index.html")
+
 
 def download():
     """
@@ -17,6 +18,7 @@ def download():
     """
     data = requests.get('https://api.rezdy.com/v1/products/marketplace?apiKey=1d7ce4142c634882846e3597aaef36e4')
     return JsonResponse(data.json(), safe=False)
+
 
 class UserViewSet(viewsets.ModelViewSet):
     """
@@ -33,5 +35,7 @@ class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
 
+
 class GoogleLogin(SocialLoginView):
     adapter_class = GoogleOAuth2Adapter
+
