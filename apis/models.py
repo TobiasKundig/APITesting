@@ -62,7 +62,24 @@ class Choice(models.Model):
 
 
 class Rezdy(models.Model):
-    data = JSONField(blank=True, null=True)
+
+    def __init__(self, url='https://api.rezdy.com/v1/products/marketplace?', key='apiKey=1d7ce4142c634882846e3597aaef36e4'):
+        self.data = JSONField(blank=True, null=True)
+        self.key = key
+        self.url = url
+
+    def __get__(self, instance, owner):
+        return self.data, self.key
+
+    def downloadmarket(self):
+        response = requests.get(self.url, self.key)
+        self.data = response
+        print (response.json())
+        return response
+
+    def postmarket(self):
+        post = requests.post()
+        return post
 
 
 def download():
@@ -75,7 +92,7 @@ def download():
 
 class NutanixObj:
     def __init__(self, username, password, created=None):
-        self.ip_addr = '10.14.8.11'
+        self.ip_addr = '10.14.8.10'
         self.username = username
         self.password = password
         self.created = created or datetime.now()
