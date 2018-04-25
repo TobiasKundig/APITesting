@@ -6,18 +6,23 @@ from django.http import HttpResponse, JsonResponse
 from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter
 from rest_auth.registration.views import SocialLoginView
 import requests
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
 
 def index(request):
     return render(request, "apis/index.html")
 
 
-def download():
+@api_view(['GET', 'POST'])
+def download(response):
     """
     Returns Rezdy Marketplace products
     """
-    data = requests.get('https://api.rezdy.com/v1/products/marketplace?apiKey=1d7ce4142c634882846e3597aaef36e4')
-    return JsonResponse(data.json(), safe=False)
+    if response.method == 'GET':
+        data = requests.get('https://api.rezdy.com/v1/products/marketplace?apiKey=1d7ce4142c634882846e3597aaef36e4')
+
+    return Response(data.json())
 
 
 class UserViewSet(viewsets.ModelViewSet):

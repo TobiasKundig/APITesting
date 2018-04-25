@@ -2,52 +2,13 @@ from django.db import models
 from django.http import JsonResponse
 import requests
 from datetime import datetime
-#import urllib2
 import base64
-#import json
 import json
-import socket
 import sys
-import pprint
 import time
 import ssl
 from urllib.request import urlopen
-
-
-class JSONField(models.TextField):
-    """
-    JSONField is a generic textfield that neatly serializes/unserializes
-    JSON objects seamlessly.
-    Django snippet #1478
-
-    example:
-        class Page(models.Model):
-            data = JSONField(blank=True, null=True)
-
-        page = Page.objects.get(pk=5)
-        page.data = {'title': 'test', 'type': 3}
-        page.save()
-    """
-
-    #__metaclass__ = models.SubfieldBase
-
-    def to_python(self, value):
-        if value == "":
-            return None
-
-        try:
-            if isinstance(value, basestring):
-                return json.loads(value)
-        except ValueError:
-            pass
-        return value
-
-    def get_db_prep_save(self, value, *args, **kwargs):
-        if value == "":
-            return None
-        if isinstance(value, dict):
-            value = json.dumps(value, cls=DjangoJSONEncoder)
-        return super(JSONField, self).get_db_prep_save(value, *args, **kwargs)
+from rest_framework.response import Response
 
 
 class Question(models.Model):
@@ -82,12 +43,14 @@ class Rezdy(models.Model):
         return post
 
 
-def download():
+def download(response):
     """
     Returns Rezdy Marketplace products
     """
-    data = requests.get('https://api.rezdy.com/v1/products/marketplace?apiKey=1d7ce4142c634882846e3597aaef36e4')
-    return JsonResponse(data.json(), safe=False)
+    if response.method == 'GET':
+        data = requests.get('https://api.rezdy.com/v1/products/marketplace?apiKey=1d7ce4142c634882846e3597aaef36e4')
+
+    return Response(data.json(), safe=False)
 
 
 class NutanixObj:
