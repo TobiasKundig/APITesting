@@ -17,6 +17,9 @@ class GroupSerializer(serializers.HyperlinkedModelSerializer):
 
 class RezdySerializer(serializers.Serializer):
     data = serializers.JSONField()
+    key = serializers.CharField(max_length=50, allow_blank=False)
+    url = serializers.URLField(max_length=200)
+    created = serializers.DateTimeField()
 
 
 class NutanixSerializer(serializers.Serializer):

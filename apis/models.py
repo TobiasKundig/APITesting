@@ -9,6 +9,7 @@ import time
 import ssl
 from urllib.request import urlopen
 from rest_framework.response import Response
+#from rest_framework import JSONField
 
 
 class Question(models.Model):
@@ -23,13 +24,12 @@ class Choice(models.Model):
 
 
 class Rezdy(models.Model):
+    data = models.TextField()
+    key = models.CharField(max_length=50)
+    url = models.URLField(max_length=200)
+    created = models.DateTimeField(auto_now_add=True)
 
-    def __init__(self, url='https://api.rezdy.com/v1/products/marketplace?', key='apiKey=1d7ce4142c634882846e3597aaef36e4'):
-        self.data = JSONField(blank=True, null=True)
-        self.key = key
-        self.url = url
-
-    def __get__(self, instance, owner):
+    '''def __get__(self, instance, owner):
         return self.data, self.key
 
     def downloadmarket(self):
@@ -40,7 +40,7 @@ class Rezdy(models.Model):
 
     def postmarket(self):
         post = requests.post()
-        return post
+        return post'''
 
 
 def download(response):
